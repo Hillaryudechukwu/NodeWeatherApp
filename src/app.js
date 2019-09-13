@@ -8,16 +8,18 @@ const forecast = require('./utils/forecast')
     //Define path for express directory
 const publicDir = path.join(__filename, '../../public/')
 const viewsDir = path.join(__filename, '../../templates/views')
-    //const partialsDir = path.join(__filename, '../../templates/partials')
-hbs.registerPartials(__dirname + '../../templates/partials', () => {});
-//set up to serve static html pages
+
+//hbs.registerPartials(__dirname + '../../templates/partials', () => { });
+const partialsPath = path.join(__dirname, '../templates/partials')
+    //set up to serve static html pages
 app.use(express.static(publicDir))
 
 //handlebars for dynamic .hbs pages 
 app.set('view engine', 'hbs')
 app.set('views', viewsDir)
-    //hbs.registerPartial(partialsDir, () => {})
-    //express routing system
+hbs.registerPartials(partialsPath)
+
+//express routing system
 app.get('', (req, res) => {
     res.render('index', {
         title: 'Weather',
